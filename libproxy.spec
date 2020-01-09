@@ -1,10 +1,10 @@
 %{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 
-%define gecko_version 1.9.2
+%define gecko_version 17.0.2
 
 Name:           libproxy
 Version:        0.3.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A library handling all the details of proxy configuration
 
 Group:          System Environment/Libraries
@@ -14,6 +14,7 @@ Source0:        http://libproxy.googlecode.com/files/libproxy-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Patch0:         libproxy-0.3-CVE-2012-4505.patch
+Patch1:         libproxy-0.3-xulrunner-esr17.patch
 
 BuildRequires:  python-devel
 Requires: libproxy-python = %{version}-%{release}
@@ -112,6 +113,7 @@ developing applications that use %{name}.
 %prep
 %setup -q
 %patch0 -p1 -b .CVE-2012-4505
+%patch1 -p1 -b .esr17
 
 
 %build
@@ -183,6 +185,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Feb  1 2013 Jan Horak <jhorak@redhat.com> - 0.3.0-4
+- Rebuild against newer gecko
+
 * Fri Nov  2 2012 Dan Winship <danw@redhat.com> - 0.3.0-3
 - Fix CVE-2012-4505
 
