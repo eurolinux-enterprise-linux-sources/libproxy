@@ -1,10 +1,10 @@
 %{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 
-%define gecko_version 17.0.2
+%define gecko_version 17.0
 
 Name:           libproxy
 Version:        0.3.0
-Release:        4%{?dist}
+Release:        10%{?dist}
 Summary:        A library handling all the details of proxy configuration
 
 Group:          System Environment/Libraries
@@ -15,6 +15,9 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Patch0:         libproxy-0.3-CVE-2012-4505.patch
 Patch1:         libproxy-0.3-xulrunner-esr17.patch
+Patch2:         libproxy-sysconfdir.patch
+Patch3:         libproxy-webkit-crash.patch
+Patch4:         libproxy-nopassword-crash.patch
 
 BuildRequires:  python-devel
 Requires: libproxy-python = %{version}-%{release}
@@ -114,6 +117,9 @@ developing applications that use %{name}.
 %setup -q
 %patch0 -p1 -b .CVE-2012-4505
 %patch1 -p1 -b .esr17
+%patch2 -p1 -b .sysconfdir
+%patch3 -p1 -b .webkit-crash
+%patch4 -p1 -b .nopassword-crash
 
 
 %build
@@ -185,6 +191,28 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jun 25 2014 Dan Winship <danw@redhat.com> - 0.3.0-10
+- Rebuild; 0.3.0-9 got built against old webkitgtk (#1113046)
+
+* Mon Jun 23 2014 Dan Winship <danw@redhat.com> - 0.3.0-9
+- Actually fix the webkit crash; previous fix didn't work
+
+* Fri Jun 20 2014 Tomas Popela <tpopela@redhat.com> - 0.3.0-8
+- Rebuild against new webkitgtk
+- Resolves: rhbz#1101426
+
+* Tue Jun 17 2014 Dan Winship <danw@redhat.com> - 0.3.0-7
+- Fix a bug in the webkit patch, noticed by coverity
+
+* Tue Jun 17 2014 Dan Winship <danw@redhat.com> - 0.3.0-6
+- Fix build with xulrunner 17 (#916973)
+- Fix to not look for proxy.conf in current directory (#802765)
+- Fix a crash with webkit and invalid PAC file (#874492)
+- Fix a crash with URLs containing a username but no password (#979356)
+
+* Mon Nov  4 2013 Martin Stransky <stransky@redhat.com> - 0.3.0-5
+- Rebuild against newer gecko (Firefox 24)
+
 * Fri Feb  1 2013 Jan Horak <jhorak@redhat.com> - 0.3.0-4
 - Rebuild against newer gecko
 
