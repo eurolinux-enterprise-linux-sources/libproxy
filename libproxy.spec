@@ -4,7 +4,7 @@
 
 Name:           libproxy
 Version:        0.3.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A library handling all the details of proxy configuration
 
 Group:          System Environment/Libraries
@@ -12,6 +12,8 @@ License:        LGPLv2+
 URL:            http://code.google.com/p/libproxy/
 Source0:        http://libproxy.googlecode.com/files/libproxy-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+Patch0:         libproxy-0.3-CVE-2012-4505.patch
 
 BuildRequires:  python-devel
 Requires: libproxy-python = %{version}-%{release}
@@ -109,7 +111,7 @@ developing applications that use %{name}.
 
 %prep
 %setup -q
-
+%patch0 -p1 -b .CVE-2012-4505
 
 
 %build
@@ -181,6 +183,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Nov  2 2012 Dan Winship <danw@redhat.com> - 0.3.0-3
+- Fix CVE-2012-4505
+
 * Fri Aug 27 2010 Jan Horak <jhorak@redhat.com> - 0.3.0-2
 - Rebuild against newer gecko
 
