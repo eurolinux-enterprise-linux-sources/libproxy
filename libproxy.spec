@@ -12,7 +12,7 @@
 
 Name:           libproxy
 Version:        0.4.11
-Release:        6%{?svn}%{?dist}
+Release:        8%{?svn}%{?dist}
 Summary:        A library handling all the details of proxy configuration
 
 Group:          System Environment/Libraries
@@ -22,6 +22,8 @@ URL:            http://code.google.com/p/libproxy/
 Source0:        http://libproxy.googlecode.com/files/libproxy-%{version}%{?svn}.tar.gz
 Patch0:         libproxy-0.4.10-mozjs.patch
 Patch1:         0001-pacrunner_mozjs-Also-support-mozjs-17.0.patch
+Patch3:         libproxy-0.4.11-fdleak.patch
+Patch4:         libproxy-0.4.11-crash.patch
 
 BuildRequires:  python-devel
 BuildRequires:  libmodman-devel >= 2.0.1
@@ -173,6 +175,8 @@ developing applications that use %{name}.
 %setup -q
 %patch0 -p1 -b .orig
 %patch1 -p1 -b .orig
+%patch3 -p1 -b .fdleak
+%patch4 -p1 -b .crash
 
 %build
 %{cmake} \
@@ -269,6 +273,13 @@ make test
 
 
 %changelog
+* Wed Sep 02 2015 Scientific Linux Auto Patch Process <SCIENTIFIC-LINUX-DEVEL@LISTSERV.FNAL.GOV>
+- Eliminated rpmbuild "bogus date" error due to inconsistent weekday,
+  by assuming the date is correct and changing the weekday.
+
+* Fri Mar 20 2015 Dan Winship <danw@redhat.com> - 0.4.11-8
+- Fix pacrunner crash (#1201658)
+
 * Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 0.4.11-6
 - Mass rebuild 2014-01-24
 
