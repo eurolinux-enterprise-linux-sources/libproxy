@@ -12,7 +12,7 @@
 
 Name:           libproxy
 Version:        0.4.11
-Release:        10%{?svn}%{?dist}
+Release:        11%{?svn}%{?dist}
 Summary:        A library handling all the details of proxy configuration
 
 Group:          System Environment/Libraries
@@ -273,6 +273,9 @@ make test
 
 
 %changelog
+* Tue Sep 19 2017 Yaakov Selkowitz <yselkowi@redhat.com> - 0.4.11-11
+- Rebuilt for mozjs soname reversion (#1436515)
+
 * Tue Jul 12 2016 Dan Winship <danw@redhat.com> - 0.4.11-10
 - Rebuild for mozjs soname bump (#1353447)
 
