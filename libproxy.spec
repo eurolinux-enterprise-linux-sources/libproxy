@@ -12,7 +12,7 @@
 
 Name:           libproxy
 Version:        0.4.11
-Release:        4%{?svn}%{?dist}.1
+Release:        6%{?svn}%{?dist}
 Summary:        A library handling all the details of proxy configuration
 
 Group:          System Environment/Libraries
@@ -269,6 +269,12 @@ make test
 
 
 %changelog
+* Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 0.4.11-6
+- Mass rebuild 2014-01-24
+
+* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 0.4.11-5
+- Mass rebuild 2013-12-27
+
 * Mon Jul  8 2013 Dan Winship <danw@redhat.com> - 0.4.11-4.el7.1
 - Rebuild to fix RPM changelog
 
